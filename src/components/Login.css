@@ -1,0 +1,9 @@
+.bk-img{
+    background-image: url(/src/assets/img/pexels-photo-696218.webp);
+    background-repeat: no-repeat;
+    background-position: fixed;
+    background-size: cover;
+}
+button{
+    color: orangered;
+}
