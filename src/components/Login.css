@@ -4,6 +4,12 @@
     background-position: fixed;
     background-size: cover;
 }
+.bk-img2{
+    background-image: url(/src/assets/img/istockphoto-2032134580-612x612.webp);
+    background-repeat: no-repeat;
+    background-position: fixed;
+    background-size: cover;
+}
 button{
     color: orangered;
 }

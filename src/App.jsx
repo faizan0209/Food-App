@@ -8,6 +8,7 @@ import Signup from "./components/Signup";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Admin from "./components/Admin";
+import OrderFood from "./components/OrderFood";
 function App() {
 
   // Define the router for routing
@@ -41,6 +42,10 @@ function App() {
         {
           path: "/admin",
           element: <Admin/>,
+        },
+        {
+          path: "/order",
+          element: <OrderFood/>,
         },
       ],
     },

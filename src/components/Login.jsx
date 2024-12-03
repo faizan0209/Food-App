@@ -41,7 +41,7 @@ alert("ok..")
               <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40  bk-img ">
                 <div>
                   <h2 className="text-2xl font-bold text-white sm:text-3xl">Welcome Back</h2>
-                  <p className="max-w-xl mt-3 text-gray-300">
+                  <p className="max-w-xl mt-3 text-gray-100">
                     Ready to continue your journey? Log in to access your account.
                   </p>
                 </div>

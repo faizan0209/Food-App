@@ -46,10 +46,10 @@ function Signup() {
       <div className="bg-white dark:bg-gray-900">
         <div className="flex justify-center h-screen">
           <div className="hidden bg-cover lg:block lg:w-2/3">
-            <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40 bk-img">
+            <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40 bk-img2">
               <div>
                 <h2 className="text-2xl font-bold text-white sm:text-3xl">Welcome to FoodieWeb</h2>
-                <p className="max-w-xl mt-3 text-gray-300">
+                <p className="max-w-xl   mt-3 text-gray-100">
                   Join us today to explore exciting recipes, restaurant recommendations, and more. Sign up now!
                 </p>
               </div>
