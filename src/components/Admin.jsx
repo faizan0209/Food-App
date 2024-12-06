@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from "./Firebase";
-import axios from "axios"; // Add axios for Cloudinary upload
+import axios from "axios";
 
 const Admin = ({ onLogout }) => {
   const [foodItems, setFoodItems] = useState([]);
   const [newItem, setNewItem] = useState({ name: "", price: "", image: "" });
-  const [editItem, setEditItem] = useState(null); // To handle editing
+  const [editItem, setEditItem] = useState(null); 
+  const [PreviewImage,setPreviewImage]=useState()
 
   useEffect(() => {
     const fetchFoodItems = async () => {
@@ -32,32 +33,30 @@ const Admin = ({ onLogout }) => {
 
   const handleFileChange = async (e) => {
 
-    const file = e.target.files[0]; // Get the first selected file
+    const file = e.target.files[0]; 
     if (file) {
-      setNewItem((prev) => ({ ...prev, image: file })); // Store the file in state
+      setNewItem((prev) => ({ ...prev, image: file })); 
       const reader = new FileReader();
       reader.onload = () => {
-        setPreviewImage(reader.result); // Update the preview state with the file URL
+        setPreviewImage(reader.result); 
       };
       reader.onerror = (error) => {
         console.error("Error reading file:", error);
         alert("Failed to preview the image. Please try again.");
       };
-      reader.readAsDataURL(file); // Convert the file to a data URL
+      reader.readAsDataURL(file); 
     } else {
-      setPreviewImage(null); // Clear the preview if no file is selected
+      setPreviewImage(null); 
     }
 
-
-    // const file = e.target.files[0];
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "AppsImage"); // Replace with your upload preset
+      formData.append("upload_preset", "AppsImage"); 
 
       try {
         const response = await axios.post(
-          "https://api.cloudinary.com/v1_1/dmcmwflh7/image/upload", // Replace with your Cloudinary URL
+          "https://api.cloudinary.com/v1_1/dmcmwflh7/image/upload", 
           formData
         );
         setNewItem({ ...newItem, image: response.data.secure_url });
@@ -74,9 +73,24 @@ const Admin = ({ onLogout }) => {
   const handleAddItem = async () => {
     if (newItem.name && newItem.price && newItem.image) {
       try {
-        const docRef = await addDoc(collection(db, "foodItems"), newItem);
-        setFoodItems([...foodItems, { ...newItem, id: docRef.id }]);
+        // Ensure price is stored as a number
+        const parsedPrice = parseFloat(newItem.price);
+        if (isNaN(parsedPrice)) {
+          alert("Price must be a valid number.");
+          return;
+        }
+  
+        const docRef = await addDoc(collection(db, "foodItems"), {
+          ...newItem,
+          price: parsedPrice, // Ensure the price is a number
+        });
+  
+        // Add new item to the food items list
+        setFoodItems([...foodItems, { ...newItem, price: parsedPrice, id: docRef.id }]);
+  
+        // Reset new item fields
         setNewItem({ name: "", price: "", image: "" });
+  
         alert("Food item added successfully!");
       } catch (error) {
         console.error("Error adding document:", error);
@@ -85,6 +99,7 @@ const Admin = ({ onLogout }) => {
       alert("Please fill in all fields.");
     }
   };
+  
 
   const handleEdit = (item) => {
     setEditItem(item);

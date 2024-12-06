@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Routes from "./components/Routes";
 import Home from "./components/Home";
@@ -9,18 +9,19 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Admin from "./components/Admin";
 import OrderFood from "./components/OrderFood";
-function App() {
+import ProtectedRutes from './components/ProtectedRutes'
 
+function App() {
   // Define the router for routing
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Routes />, // Pass the function to Routes
+      element: <Routes />,
       errorElement: <ErrorPage />,
       children: [
         {
           index: true,
-          element: <Home />, // Apply blur effect here
+          element: <Home />,
           errorElement: <ErrorPage />,
         },
         {
@@ -37,15 +38,23 @@ function App() {
         },
         {
           path: "/signup",
-          element: <Signup/>,
+          element: <Signup />,
         },
         {
           path: "/admin",
-          element: <Admin/>,
+          element: (
+            <ProtectedRutes>
+              <Admin/>
+            </ProtectedRutes>
+          ),
         },
         {
           path: "/order",
-          element: <OrderFood/>,
+          element: (
+            <ProtectedRutes>
+              <OrderFood /> {/* Wrap OrderFood in ProtectedRoute */}
+            </ProtectedRutes>
+          ),
         },
       ],
     },

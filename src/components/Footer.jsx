@@ -1,8 +1,4 @@
 import React from "react";
-import { BsFacebook } from "react-icons/bs";
-import { RiTwitterXFill } from "react-icons/ri";
-import { BsInstagram } from "react-icons/bs";
-
 const Footer = () => {
   return (
     <div className=" bg-black text-white rounded-t-3xl mt-8 md:mt-0">

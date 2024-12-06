@@ -1,32 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { BiRestaurant } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; // Import necessary Firebase methods
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; 
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);  // Track the user authentication state
+  const [user, setUser] = useState(null);  
 
   useEffect(() => {
-    const auth = getAuth();  // Get Firebase auth instance
+    const auth = getAuth(); 
     
-    // Listen for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);  // Set the user state when the auth state changes
+      setUser(user); 
     });
 
-    return () => unsubscribe(); // Cleanup the listener on component unmount
+    return () => unsubscribe(); 
   }, []);
 
   const handleLoginClick = () => {
-    navigate("/login");  // Navigate to the login page
+    navigate("/login"); 
   };
 
   const handleLogoutClick = async () => {
     const auth = getAuth();
     try {
-      await signOut(auth);  // Sign the user out
-      navigate("/");  // Redirect to the home page after logout
+      await signOut(auth);  
+      navigate("/"); 
     } catch (error) {
       console.error("Error signing out: ", error);
     }
@@ -62,7 +61,6 @@ const Navbar = () => {
         </nav>
 
         <div>
-          {/* Conditionally render Login or Logout based on the user state */}
           {user ? (
             <button
               onClick={handleLogoutClick}

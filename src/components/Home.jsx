@@ -25,11 +25,7 @@ const Home = () => {
           
         </div>
 
-        <Link to="/order">
-            <button className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-              Order Now
-            </button>
-            </Link>
+  
 
       </div>
     </div>

@@ -1,35 +1,41 @@
 import React, { useState } from 'react';
-import { auth, signInWithEmailAndPassword } from './Firebase'; // Ensure correct Firebase import
+import { auth, signInWithEmailAndPassword } from './Firebase'; 
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
+import { MdRestaurant } from "react-icons/md";
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // For displaying login errors
+  const [errorMessage, setErrorMessage] = useState(''); 
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent page refresh on form submission
-
+    e.preventDefault(); 
+  
+    // For regular users, proceed with Firebase authentication
     try {
-      // Attempt Firebase sign-in
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-alert("ok..")
-      // If login is successful, navigate to the chat room or dashboard
-      navigate('/admin'); // Adjust the route to your app's flow
-
+  
+      setTimeout(() => {
+        navigate("/order");
+      }, 2000);
     } catch (error) {
-      // Handle error if login fails
-      setErrorMessage('Invalid email or password. Please try again.');
+      setErrorMessage("Invalid email or password. Please try again.");
+    }
+    if (email === "faizan123@gmail.com" && password === "FA12345") {
+      setTimeout(() => {
+        navigate("/admin");
+      }, 2000);
+      return; // Exit the function to prevent Firebase authentication attempt
     }
   };
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'email') setEmail(value);
-    if (name === 'password') setPassword(value);
+    if (name === "email") setEmail(value);
+    if (name === "password") setPassword(value);
   };
 
   return (
@@ -49,7 +55,8 @@ alert("ok..")
             </div>
 
             <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
-              <div className="flex-1">
+            <div className="flex-1 flex-col items-center w-full">
+            {/* <MdRestaurant className="text-orange-500 text-4xl mb-4" /> */}
                 <div className="text-center">
                   <p className="mt-3 text-gray-500 dark:text-gray-300">Sign in to your account</p>
                 </div>
@@ -84,7 +91,7 @@ alert("ok..")
                       />
                     </div>
 
-                    {/* Display error message if login fails */}
+                    
                     {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
 
                     <div className="mt-6">
